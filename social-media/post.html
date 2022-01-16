@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Social Media</title>
+  <div class="header">
+     <a href="#default" class="logo">Social Media</a>
+     <div class="header-right">
+     <a class="active" onclick="location.href='index.html'">Home</a>
+     <a href="user.html">Users</a>
+   </div>
+  </div>
+</head>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .header {
+    overflow: hidden;
+    background-color: #f1f1f1;
+    padding: 20px 10px;
+  }
+
+  .header a {
+    float: left;
+    color: black;
+    text-align: center;
+    padding: 12px;
+    text-decoration: none;
+    font-size: 18px;
+    line-height: 25px;
+    border-radius: 4px;
+  }
+
+  .header a.logo {
+    font-size: 25px;
+    font-weight: bold;
+  }
+
+  .header a:hover {
+    background-color: #ddd;
+    color: black;
+  }
+
+  .header a.active {
+    background-color: dodgerblue;
+    color: white;
+  }
+
+  .header-right {
+    float: right;
+  }
+
+  @media screen and (max-width: 500px) {
+    .header a {
+      float: none;
+      display: block;
+      text-align: left;
+    }
+
+    .header-right {
+      float: none;
+    }
+  }
+
+
+  .div-1 {
+    /* Add shadows to create the "card" effect */
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+    height: 8vw;
+    font-size: large;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    background-color: antiquewhite;
+    padding-bottom: 1vw;
+  }
+
+  .div-2 {
+    background-color: rgb(247, 223, 193);
+    text-decoration: underline;
+    text-align: center;
+    padding-bottom: 1vw;
+    padding-top: 1vw;
+    margin-top: 10px;
+  }
+</style>
+
+<body>
+  <div class="news-btn-div" data-tab="news-2" onclick="req1()"></div>
+  <div id="post-data" class="news-content-container-flex"> </div>
+</body>
+<script>
+  const urlParams = new URLSearchParams(window.location.search);
+  const PostId = urlParams.get('id');
+
+  console.log(PostId);
+  function req1() {
+    fetch('https://jsonplaceholder.typicode.com/posts/' + PostId + '/comments')
+      .then((response) => response.json())
+      .then(data => {
+        const name = data.name;
+        const email = data.email;
+        const body = data.body;
+        console.log(data);
+        data.forEach(element => {
+          console.log(element);
+          document.getElementById("post-data").innerHTML +=
+            "<div class=div-1><div class=div-2>" +
+            "Email :" + element.email
+            + "</div><div>" + "Body :" + element.body + "</div>";
+
+        });
+      });
+
+  }
+  req1();
+</script>
+
+</html>
